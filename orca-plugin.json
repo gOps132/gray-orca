@@ -1,0 +1,37 @@
+{
+  "manifestVersion": 2,
+  "id": "gray",
+  "name": "Gray for Orca",
+  "version": "0.1.0",
+  "description": "Launch the Gray CLI in the current Orca workspace.",
+  "license": "MIT",
+  "engines": {
+    "orca": ">=1.4.259"
+  },
+  "execution": "trusted-worker",
+  "pluginApi": 1,
+  "main": "src/worker.ts",
+  "contributes": {
+    "panels": [
+      {
+        "id": "gray",
+        "title": "Gray",
+        "icon": "terminal",
+        "entry": "src/panel.tsx",
+        "ui": "components"
+      }
+    ]
+  },
+  "capabilities": [
+    {
+      "kind": "workspace:read"
+    },
+    {
+      "kind": "terminal:send"
+    },
+    {
+      "kind": "workspace:write"
+    }
+  ],
+  "repository": "https://github.com/gOps132/gray-orca"
+}
