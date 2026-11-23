@@ -1,19 +1,31 @@
 # Gray for Orca
 
-A community plugin that opens the interactive [Gray CLI](https://github.com/vstaln/gray) in the current Orca workspace. It is a terminal launcher, not a native chat or agent-picker integration. It uses Gray's existing configuration and does not submit prompts or change permissions.
+Open the [Gray CLI](https://github.com/vstaln/gray) in your current [Orca](https://github.com/stablyai/orca) workspace. The plugin adds a **Gray** panel to Orca’s right sidebar; **Launch Gray** opens and focuses an interactive terminal.
 
-## Install
+## Install the plugin
 
-1. Use Orca 1.4.259 or newer. Install [Gray](https://github.com/vstaln/gray#install) on the workspace host and make sure `gray` works in that workspace's Orca terminal.
-2. In Orca, find **Gray for Orca** under **Settings → Plugins**, or run `orca plugin install gOps132/gray-orca`. Review the requested permissions before approving. The plugin reads the active workspace, opens a terminal there, and asks Orca to focus it.
-3. Open the **Gray** panel in the right sidebar and click **Launch Gray**. If the terminal reports that `gray` is not found, fix `PATH` in the workspace's shell before retrying.
+1. Use Orca **1.4.259 or newer** and [install Gray](https://github.com/vstaln/gray#install) on the machine running your workspace. Check that `gray --version` works in an Orca terminal there.
+2. Look for **Gray for Orca** under **Settings → Plugins**, or install it from GitHub:
 
-## Develop
+   ```sh
+   orca plugin install gOps132/gray-orca
+   ```
+
+3. Review and approve the requested access. Open the **Gray** panel in the right sidebar and click **Launch Gray**.
+
+The plugin reads the active workspace, starts the `gray` command, and asks Orca to focus the new terminal. It uses your existing Gray configuration and does not send a prompt or change Gray’s permissions. If the terminal can’t find `gray`, fix `PATH` on the workspace host before retrying.
+
+## Gray in Orca’s New Workspace picker
+
+The sidebar plugin **does not** add a harness to **⌘N → Select agent**. That requires a separate change to Orca itself. In an Orca build with that change, choose **Gray**, then optionally choose a model and provider before creating the workspace. Orca reads the catalog from `gray --dump-models cached` and applies your choice only to the new terminal session. The plugin is not needed for that flow. Neither integration adds Gray to Orca’s native Chat UI.
+
+## Develop the plugin
 
 ```sh
 orca plugin validate .
 orca plugin test .
 orca plugin check .
+orca plugin dev load .
 ```
 
-To load a local checkout in Orca, run `orca plugin dev load .` and review its approval prompt. Development folders reload on edits.
+Review the approval request when loading your local checkout. Orca reloads development plugins when their files change.
